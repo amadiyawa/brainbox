@@ -1,2 +1,2 @@
-# brainbox
+# Brainbox
 Brainbox
