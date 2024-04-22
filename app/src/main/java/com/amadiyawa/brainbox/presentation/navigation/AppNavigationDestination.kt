@@ -1,4 +1,4 @@
-package com.amadiyawa.brainbox.navigation
+package com.amadiyawa.brainbox.presentation.navigation
 
 /**
  * `AppNavigationDestination` is an interface that represents a navigation destination in the application.

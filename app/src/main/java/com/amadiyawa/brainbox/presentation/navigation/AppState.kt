@@ -1,4 +1,4 @@
-package com.amadiyawa.brainbox.navigation
+package com.amadiyawa.brainbox.presentation.navigation
 
 import androidx.compose.ui.util.trace
 import androidx.navigation.NavHostController

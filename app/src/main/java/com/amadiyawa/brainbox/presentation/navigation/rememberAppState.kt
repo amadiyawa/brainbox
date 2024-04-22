@@ -1,4 +1,4 @@
-package com.amadiyawa.brainbox.navigation
+package com.amadiyawa.brainbox.presentation.navigation
 
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
