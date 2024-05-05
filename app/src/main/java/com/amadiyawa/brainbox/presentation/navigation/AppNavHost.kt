@@ -4,6 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.amadiyawa.feature_base.presentation.navigation.AppNavigationDestination
+import com.amadiyawa.feature_quiz.presentation.navigation.QuestionListNavigation
+import com.amadiyawa.feature_quiz.presentation.navigation.ScoreListNavigation
+import com.amadiyawa.feature_quiz.presentation.navigation.questionListGraph
+import com.amadiyawa.feature_quiz.presentation.navigation.scoreListGraph
 
 @Composable
 fun AppNavHost(

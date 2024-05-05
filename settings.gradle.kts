@@ -1,3 +1,11 @@
+rootProject.name = "BrainBox"
+
+include(
+    ":app",
+    ":feature_base",
+    ":feature_quiz"
+)
+
 pluginManagement {
     repositories {
         google {
@@ -11,13 +19,19 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
     }
 }
 
-rootProject.name = "BrainBox"
-include(":app")
+// Enables the feature preview for type-safe project accessors in Gradle.
+// Type-safe project accessors provide a type-safe and refactoring-friendly way to access other projects.
+// This feature is particularly useful in a multi-module project setup, where you often need to declare dependencies on other projects.
+// By enabling this feature, you can access other projects in your settings.gradle.kts file in a type-safe manner.
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
