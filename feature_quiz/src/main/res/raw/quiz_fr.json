@@ -1,0 +1,343 @@
+[
+  {
+    "question": "Quelle était la colonie française dont le Cameroun faisait partie avant son indépendance ?",
+    "optionList": [
+      "A. La Côte-d'Ivoire",
+      "B. Le Nigeria",
+      "C. Le Gabon",
+      "D. Aucune de ces réponses"
+    ],
+    "answer": "D",
+    "level": 1
+  },
+  {
+    "question": "Quelle année le Cameroun a-t-il obtenu son indépendance de la France ?",
+    "optionList": [
+      "A. 1953",
+      "B. 1960",
+      "C. 1975",
+      "D. 1990"
+    ],
+    "answer": "B",
+    "level": 1
+  },
+  {
+    "question": "Qui est considéré comme le père de l'indépendance camerounaise ?",
+    "optionList": [
+      "A. Ahmadou Ahidjo",
+      "B. Paul Biya",
+      "C. John Ngu Foncha",
+      "D. Ruben Um Nyobé"
+    ],
+    "answer": "D",
+    "level": 1
+  },
+  {
+    "question": "Quel a été le système de gouvernement adopté par le Cameroun après son indépendance ?",
+    "optionList": [
+      "A. Monarchie",
+      "B. République fédérale",
+      "C. Dictature",
+      "D. Théocratie"
+    ],
+    "answer": "B",
+    "level": 1
+  },
+  {
+    "question": "En quelle année le Cameroun a-t-il adopté sa première constitution ?",
+    "optionList": [
+      "A. 1955",
+      "B. 1961",
+      "C. 1972",
+      "D. 1996"
+    ],
+    "answer": "B",
+    "level": 1
+  },
+  {
+    "question": "Quelle est la principale religion pratiquée au Cameroun ?",
+    "optionList": [
+      "A. Christianisme",
+      "B. Islam",
+      "C. Bouddhisme",
+      "D. Hindouisme"
+    ],
+    "answer": "A",
+    "level": 1
+  },
+  {
+    "question": "Quel était le parti au pouvoir au moment de l'indépendance du Cameroun ?",
+    "optionList": [
+      "A. Union des populations du Cameroun (UPC)",
+      "B. Union nationale camerounaise (UNC)",
+      "C. Parti camerounais nationaliste (PCN)",
+      "D. Rassemblement démocratique du peuple camerounais (RDPC)"
+    ],
+    "answer": "C",
+    "level": 1
+  },
+  {
+    "question": "Quelle est la langue officielle du Cameroun ?",
+    "optionList": [
+      "A. Français",
+      "B. Anglais",
+      "C. Espagnol",
+      "D. Portugais"
+    ],
+    "answer": "A",
+    "level": 1
+  },
+  {
+    "question": "Quelle est la capitale du Cameroun ?",
+    "optionList": [
+      "A. Douala",
+      "B. Yaoundé",
+      "C. Bamako",
+      "D. N'Djamena"
+    ],
+    "answer": "B",
+    "level": 1
+  },
+  {
+    "question": "Quel est le groupe ethnique majoritaire au Cameroun ?",
+    "optionList": [
+      "A. Bamiléké",
+      "B. Fang",
+      "C. Bamoun",
+      "D. Beti"
+    ],
+    "answer": "A",
+    "level": 1
+  },
+  {
+    "question": "Qui est le président actuel du Cameroun ?",
+    "optionList": [
+      "A. Ahmadou Ahidjo",
+      "B. Paul Biya",
+      "C. John Ngu Foncha",
+      "D. Ruben Um Nyobé"
+    ],
+    "answer": "B",
+    "level": 2
+  },
+  {
+    "question": "Quel événement a marqué le début de la guerre d'indépendance camerounaise ?",
+    "optionList": [
+      "A. La bataille de Mungo",
+      "B. L'attaque de l'ambassade française",
+      "C. L'assassinat de Félix-Roland Moumié",
+      "D. La création de l'UNC"
+    ],
+    "answer": "C",
+    "level": 2
+  },
+  {
+    "question": "Quelle est la monnaie officielle du Cameroun ?",
+    "optionList": [
+      "A. Le franc CFA",
+      "B. Le dollar américain",
+      "C. Le naira",
+      "D. Le shilling"
+    ],
+    "answer": "A",
+    "level": 2
+  },
+  {
+    "question": "Quel est le point culminant du Cameroun ?",
+    "optionList": [
+      "A. Le mont Cameroun",
+      "B. Le mont Oku",
+      "C. Le mont Bamboutu",
+      "D. Le mont Mandara"
+    ],
+    "answer": "A",
+    "level": 2
+  },
+  {
+    "question": "Quelle réunion internationale a eu lieu au Cameroun en 1972 ?",
+    "optionList": [
+      "A. La conférence de la Baule",
+      "B. Le sommet de l'OUA",
+      "C. La conférence de Brazzaville",
+      "D. La conférence de Yaoundé"
+    ],
+    "answer": "B",
+    "level": 2
+  },
+  {
+    "question": "Quelle région du Cameroun a une forte influence anglophone ?",
+    "optionList": [
+      "A. Le Nord",
+      "B. Le Centre",
+      "C. L'Ouest",
+      "D. Le Sud"
+    ],
+    "answer": "C",
+    "level": 2
+  },
+  {
+    "question": "Quel sport est le plus populaire au Cameroun ?",
+    "optionList": [
+      "A. Le football",
+      "B. Le basket-ball",
+      "C. Le volley-ball",
+      "D. L'athlétisme"
+    ],
+    "answer": "A",
+    "level": 2
+  },
+  {
+    "question": "Quelle est la plus grande réserve naturelle du Cameroun ?",
+    "optionList": [
+      "A. Le parc national de Waza",
+      "B. Le parc national de Korup",
+      "C. Le parc national de Faro",
+      "D. Le parc national de Bénoué"
+    ],
+    "answer": "B",
+    "level": 2
+  },
+  {
+    "question": "Quel est le nom du mouvement indépendantiste qui a lutté contre la France ?",
+    "optionList": [
+      "A. UPC",
+      "B. UNC",
+      "C. PCN",
+      "D. RDPC"
+    ],
+    "answer": "A",
+    "level": 2
+  },
+  {
+    "question": "Quel pays borde le Cameroun au nord-ouest ?",
+    "optionList": [
+      "A. La République centrafricaine",
+      "B. L'Algérie",
+      "C. Le Nigeria",
+      "D. Le Tchad"
+    ],
+    "answer": "C",
+    "level": 2
+  },
+  {
+    "question": "Quelle est la deuxième ville la plus peuplée du Cameroun ?",
+    "optionList": [
+      "A. Douala",
+      "B. Yaoundé",
+      "C. Garoua",
+      "D. Bafoussam"
+    ],
+    "answer": "A",
+    "level": 3
+  },
+  {
+    "question": "Quel est le nom du lac situé au nord du Cameroun ?",
+    "optionList": [
+      "A. Le lac Albert",
+      "B. Le lac Tchad",
+      "C. Le lac Victoria",
+      "D. Le lac Tanganyika"
+    ],
+    "answer": "B",
+    "level": 3
+  },
+  {
+    "question": "Quelle région du Cameroun est réputée pour sa culture bamoun ?",
+    "optionList": [
+      "A. Le Sud",
+      "B. L'Ouest",
+      "C. Le Centre",
+      "D. Le Nord-Ouest"
+    ],
+    "answer": "B",
+    "level": 3
+  },
+  {
+    "question": "Quel était le nom du Cameroun pendant la période coloniale allemande ?",
+    "optionList": [
+      "A. Kamerun",
+      "B. Douala",
+      "C. Yaoundé",
+      "D. Loppé"
+    ],
+    "answer": "A",
+    "level": 3
+  },
+  {
+    "question": "Quelle est la principale activité économique du Cameroun ?",
+    "optionList": [
+      "A. L'agriculture",
+      "B. L'industrie pétrolière",
+      "C. Le tourisme",
+      "D. Le commerce international"
+    ],
+    "answer": "A",
+    "level": 3
+  },
+  {
+    "question": "Quel est le nom du parti politique au pouvoir depuis l'indépendance du Cameroun ?",
+    "optionList": [
+      "A. UPC",
+      "B. UNC",
+      "C. PCN",
+      "D. RDPC"
+    ],
+    "answer": "D",
+    "level": 3
+  },
+  {
+    "question": "Quel était le nom du leader du mouvement indépendantiste UPC ?",
+    "optionList": [
+      "A. Ahmadou Ahidjo",
+      "B. Paul Biya",
+      "C. John Ngu Foncha",
+      "D. Ruben Um Nyobé"
+    ],
+    "answer": "D",
+    "level": 3
+  },
+  {
+    "question": "Quelle est la durée maximale d'un mandat présidentiel au Cameroun ?",
+    "optionList": [
+      "A. 5 ans",
+      "B. 7 ans",
+      "C. 10 ans",
+      "D. Il n'y a pas de limite"
+    ],
+    "answer": "B",
+    "level": 3
+  },
+  {
+    "question": "Quel est le nom de la guerre civile qui a secoué le Cameroun dans les années 1960 ?",
+    "optionList": [
+      "A. La guerre anglophone",
+      "B. La guerre du Biafra",
+      "C. La guerre de la Bakassi",
+      "D. La guerre du Kamerun"
+    ],
+    "answer": "D",
+    "level": 3
+  },
+  {
+    "question": "Quel est le nom du groupe rebelle qui a combattu le gouvernement camerounais dans les années 2000 ?",
+    "optionList": [
+      "A. Boko Haram",
+      "B. LRA (Armée de résistance du Seigneur)",
+      "C. Camerounais pour la restauration",
+      "D. La secte islamique de Mbororo"
+    ],
+    "answer": "A",
+    "level": 3
+  },
+  {
+    "question": "Combien de régions administratives compte le Cameroun ?",
+    "optionList": [
+      "A. 7",
+      "B. 10",
+      "C. 14",
+      "D. 18"
+    ],
+    "answer": "C",
+    "level": 3
+  }
+]

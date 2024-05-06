@@ -6,7 +6,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.amadiyawa.feature_base.presentation.navigation.AppNavigationDestination
-import com.amadiyawa.feature_quiz.presentation.screen.questionlist.QuestionListScreen
+import com.amadiyawa.feature_quiz.presentation.screen.quiz.QuizScreen
 
 /**
  * Defines the navigation route and destination for the score list feature.
@@ -39,6 +39,6 @@ fun NavGraphBuilder.questionListGraph(
             )
         }
     ) {
-        QuestionListScreen(onBackClick = onBackClick)
+        QuizScreen(onBackClick = onBackClick)
     }
 }
