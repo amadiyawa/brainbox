@@ -18,16 +18,10 @@ internal interface QuestionDao {
     suspend fun getQuestionById(id: Int): QuestionEntityModel
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertQuestion(question: QuestionEntityModel) {
-        question.updatedDate = System.currentTimeMillis()
-        insertQuestion(question)
-    }
+    suspend fun insertQuestion(question: QuestionEntityModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertQuestions(questionList: List<QuestionEntityModel>) {
-        questionList.forEach { it.updatedDate = System.currentTimeMillis() }
-        insertQuestions(questionList)
-    }
+    suspend fun insertQuestions(questionList: List<QuestionEntityModel>)
 
     @Query("DELETE FROM questions")
     suspend fun deleteAllQuestions()

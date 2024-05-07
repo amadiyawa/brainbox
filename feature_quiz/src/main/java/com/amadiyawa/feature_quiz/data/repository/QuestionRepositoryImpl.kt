@@ -6,13 +6,16 @@ import com.amadiyawa.feature_quiz.data.datasource.database.model.toQuestion
 import com.amadiyawa.feature_quiz.domain.model.Question
 import com.amadiyawa.feature_quiz.domain.model.toQuestionEntityModel
 import com.amadiyawa.feature_quiz.domain.repository.QuestionRepository
+import timber.log.Timber
 
 internal class QuestionRepositoryImpl(
     private val questionDao: QuestionDao
 ): QuestionRepository {
     override suspend fun getAllQuestions(): Result<List<Question>> =
         try {
+            Timber.d("getAllQuestions")
             val questionList = questionDao.getAllQuestions().map { it.toQuestion() }
+            Timber.d("questionList: $questionList")
             Result.Success(questionList)
         } catch (e: Exception) {
             Result.Failure()

@@ -1,6 +1,5 @@
 package com.amadiyawa.feature_quiz.data
 
-import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.amadiyawa.feature_quiz.data.datasource.database.QuestionDao
@@ -9,7 +8,9 @@ import com.amadiyawa.feature_quiz.data.repository.QuestionRepositoryImpl
 import com.amadiyawa.feature_quiz.data.util.loadQuestionList
 import com.amadiyawa.feature_quiz.domain.model.toQuestionEntityModel
 import com.amadiyawa.feature_quiz.domain.repository.QuestionRepository
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.dsl.module
 import timber.log.Timber
 
@@ -23,15 +24,19 @@ internal val dataModule = module {
             "questions.db"
         )
             .addCallback(object : RoomDatabase.Callback() {
+                val questionDao: QuestionDao by inject()
+
                 override fun onCreate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
                     super.onCreate(db)
-                    Log.d("QuestionDatabase", "Creating QuestionDatabase")
-                    val questionList = loadQuestionList(get())
-                    Timber.d("Loaded questions: $questionList")
-                    runBlocking {
-                        get<QuestionDao>().insertQuestions(
-                            questionList.map { it.toQuestionEntityModel() }
-                        )
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val questionList = loadQuestionList(get())
+                            questionDao.insertQuestions(
+                                questionList.map { it.toQuestionEntityModel() }
+                            )
+                        } catch (e: Exception) {
+                            Timber.e(e, "Error initializing database")
+                        }
                     }
                 }
             })

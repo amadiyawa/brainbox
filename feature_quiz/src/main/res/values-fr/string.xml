@@ -5,4 +5,5 @@
     <string name="back">Retour</string>
     <string name="new_game">Nouvelle partie</string>
     <string name="quiz_language">fr</string>
+    <string name="player_name_input">Veuillez entrer votre nom pour commencer le jeu</string>
 </resources>

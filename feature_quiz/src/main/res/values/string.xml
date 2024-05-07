@@ -5,4 +5,5 @@
     <string name="back">Back</string>
     <string name="new_game">New game</string>
     <string name="quiz_language">en</string>
+    <string name="player_name_input">Please enter your name to start the game</string>
 </resources>

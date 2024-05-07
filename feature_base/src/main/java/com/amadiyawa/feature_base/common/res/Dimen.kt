@@ -15,6 +15,14 @@ object Dimen {
         val extraExtraLarge = 64.dp
     }
 
+    object Size {
+        val extraSmall = 16.dp
+        val small = 24.dp
+        val medium = 32.dp
+        val large = 40.dp
+        val extraLarge = 56.dp
+    }
+
     // Padding dimensions
     object Padding {
         val screenContent = Spacing.large

@@ -36,4 +36,12 @@ abstract class BaseViewModel<State : BaseState, Action : BaseAction<State>>(init
         stateTimeTravelDebugger?.addAction(action)
         state = action.reduce(state)
     }
+
+    fun getCurrentState(): State {
+        return state
+    }
+
+    protected fun setState(transform: State.() -> State) {
+        state = state.transform()
+    }
 }
