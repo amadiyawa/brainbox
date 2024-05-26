@@ -1,20 +1,20 @@
 [
   {
-    "question": "Quelle était la colonie française dont le Cameroun faisait partie avant son indépendance ?",
+    "question": "Qui était père du tout premier chef omvang ?",
     "optionList": [
-      "A. La Côte-d'Ivoire",
-      "B. Le Nigeria",
-      "C. Le Gabon",
+      "A. Tolé Nguélé",
+      "B. Hans Dominik",
+      "C. Nkal Mentsouka",
       "D. Aucune de ces réponses"
     ],
-    "answer": "D",
+    "answer": "C",
     "level": 1
   },
   {
-    "question": "Quelle année le Cameroun a-t-il obtenu son indépendance de la France ?",
+    "question": " En Quelle année le chef omvang a-t-il commandité L'assassinat de Bretschneider ?",
     "optionList": [
-      "A. 1953",
-      "B. 1960",
+      "A. 1810",
+      "B. 1910",
       "C. 1975",
       "D. 1990"
     ],
@@ -22,322 +22,477 @@
     "level": 1
   },
   {
-    "question": "Qui est considéré comme le père de l'indépendance camerounaise ?",
+    "question": "De quelle manière est mort Nkal Mentsouka ?",
     "optionList": [
-      "A. Ahmadou Ahidjo",
-      "B. Paul Biya",
-      "C. John Ngu Foncha",
-      "D. Ruben Um Nyobé"
+      "A. Empoisonnement",
+      "B. Fusillade",
+      "C. Noyade",
+      "D. Pendaison"
     ],
     "answer": "D",
     "level": 1
   },
   {
-    "question": "Quel a été le système de gouvernement adopté par le Cameroun après son indépendance ?",
+    "question": "Qui est le batisseur de la ville de Doumé ?",
     "optionList": [
-      "A. Monarchie",
-      "B. République fédérale",
-      "C. Dictature",
-      "D. Théocratie"
-    ],
-    "answer": "B",
-    "level": 1
-  },
-  {
-    "question": "En quelle année le Cameroun a-t-il adopté sa première constitution ?",
-    "optionList": [
-      "A. 1955",
-      "B. 1961",
-      "C. 1972",
-      "D. 1996"
-    ],
-    "answer": "B",
-    "level": 1
-  },
-  {
-    "question": "Quelle est la principale religion pratiquée au Cameroun ?",
-    "optionList": [
-      "A. Christianisme",
-      "B. Islam",
-      "C. Bouddhisme",
-      "D. Hindouisme"
+      "A. Jean baptiste Mabaya",
+      "B. Nkal seleg",
+      "C. Nkal Etoga",
+      "D. Nkal Mentsouka"
     ],
     "answer": "A",
     "level": 1
   },
   {
-    "question": "Quel était le parti au pouvoir au moment de l'indépendance du Cameroun ?",
+    "question": "Qui est le batisseur de la ville d'Abong-Mbang ?",
     "optionList": [
-      "A. Union des populations du Cameroun (UPC)",
-      "B. Union nationale camerounaise (UNC)",
-      "C. Parti camerounais nationaliste (PCN)",
-      "D. Rassemblement démocratique du peuple camerounais (RDPC)"
+      "A. Nkal seleg",
+      "B. Mvondo Ateba",
+      "C. Mbartwa",
+      "D. Paul Biya"
+    ],
+    "answer": "B",
+    "level": 1
+  },
+  {
+    "question": "Qui était le successeur de Nkal Mentsouka ?",
+    "optionList": [
+      "A. Nanga Nguélé",
+      "B. Mbartwa",
+      "C. Dang Nguélé",
+      "D. Nkal Etoga"
+    ],
+    "answer": "A",
+    "level": 1
+  },
+  {
+    "question": "Quel est le nom du village principal des omvangs ?",
+    "optionList": [
+      "A. Bertoua",
+      "B. Nguélémendouka",
+      "C. Doumé",
+      "D. Ayos"
+    ],
+    "answer": "B",
+    "level": 1
+  },
+  {
+    "question": "A quel age jean baptiste Mabaya commença t-il sa carrière politique ?",
+    "optionList": [
+      "A. 55 ans",
+      "B. 18 ans",
+      "C. 29ans",
+      "D. 24 ans"
+    ],
+    "answer": "D",
+    "level": 1
+  },
+  {
+    "question": "En quelle année Dang Nguélé fut intronisé par l'administration française ?",
+    "optionList": [
+      "A. 1984",
+      "B. 1830",
+      "C. 1938",
+      "D. 1960"
+    ],
+    "answer": "C",
+    "level": 1
+  },
+
+  {
+    "question": "Qui était le fondateur de la chefferie de Nguélémendouka ?",
+    "optionList": [
+      "A. Jean calvin Metindi",
+      "B. Joseph Abandi",
+      "C. Nkal seleg",
+      "D. Zé Nkoum"
     ],
     "answer": "C",
     "level": 1
   },
   {
-    "question": "Quelle est la langue officielle du Cameroun ?",
+    "question": "Par qui est dirigé la chefferie de Nguélémendouka ?",
     "optionList": [
-      "A. Français",
-      "B. Anglais",
-      "C. Espagnol",
-      "D. Portugais"
+      "A. Dang Nguélé",
+      "B. Woundi lucien",
+      "C. Mekok Pierre",
+      "D. René Zé Nguélé ?"
+    ],
+    "answer": "D",
+    "level": 1
+  },
+  {
+    "question": "Dans quelle locallité Raymond Malouma débute t-il ses études ?",
+    "optionList": [
+      "A. Ecole publique de Mbartwa",
+      "B. Ecole régionale dAbong-mbang",
+      "C. Groupe scolaire les petits princes",
+      "D.  Groupe scolaire bilingue shekina"
+    ],
+    "answer": "B",
+    "level": 1
+  },
+  {
+    "question": "Quel était l'autre appelation de Nkal seleg ?",
+    "optionList": [
+      "A. Nkal Mentsouka",
+      "B. Nguélé Seleg",
+      "C. Nguélé Mentsouka",
+      "D. Lomi omva"
+    ],
+    "answer": "B",
+    "level": 1
+  },
+  {
+    "question": "Quel est l'origine des traditions orales du clan Bodawé des Gbaya-kara ?",
+    "optionList": [
+      "A. Soudan",
+      "B. Gabon",
+      "C. Est-Cameroun",
+      "D. Portugal"
     ],
     "answer": "A",
     "level": 1
   },
   {
-    "question": "Quelle est la capitale du Cameroun ?",
+    "question": "De quel clan est issu Mbartwa ?",
     "optionList": [
-      "A. Douala",
+      "A. Omvang",
+      "B. Chaka-zoulou",
+      "C. kako",
+      "D. Bodawé"
+    ],
+    "answer": "D",
+    "level": 2
+  },
+  {
+    "question": "Quel est le nom du pére de Mbartwa ?",
+    "optionList": [
+      "A. Candiba",
+      "B. Ndiba",
+      "C. Ngaimona",
+      "D. Nganké"
+    ],
+    "answer": "B",
+    "level": 2
+  },
+  {
+    "question": "Quelles activités pratiquaient Ndiba et son peuple?",
+    "optionList": [
+      "A. L'agriculture et la peche",
+      "B. La peche et la cueillette",
+      "C. le pétrole",
+      "D. l'élévage et l'agriculture"
+    ],
+    "answer": "A",
+    "level": 2
+  },
+  {
+    "question": "En quelle année est née sabbal lecco ?",
+    "optionList": [
+      "A. 1919",
+      "B. 1954",
+      "C. 1953",
+      "D. 1945"
+    ],
+    "answer": "A",
+    "level": 2
+  },
+  {
+    "question": "Quel est la principale activité du clan Bodawé de Gbaya-kara ?",
+    "optionList": [
+      "A. soja",
+      "B. Manioc",
+      "C. Riz",
+      "D. Plantain"
+    ],
+    "answer": "B",
+    "level": 2
+  },
+  {
+    "question": "De quel modèle s'est inspiré Mbartwa Mbartwa pour élaborer sa chefferie ?",
+    "optionList": [
+      "A. Le monarch",
+      "B. Le lamidat",
+      "C. La cours de justice",
+      "D. Le palais de justice"
+    ],
+    "answer": "B",
+    "level": 2
+  },
+  {
+    "question": "En Quelle année les premier Européens ont-ils débraqué à L'EST-Cameroun ?",
+    "optionList": [
+      "A. 1884",
+      "B. 1930",
+      "C. 1894",
+      "D. 1888"
+    ],
+    "answer": "C",
+    "level": 2
+  },
+  {
+    "question": "Quel était le centre administratif choisit par les Allemands lors de leur installation à L'EST-Cameroun ?",
+    "optionList": [
+      "A. Doumé",
       "B. Yaoundé",
-      "C. Bamako",
-      "D. N'Djamena"
-    ],
-    "answer": "B",
-    "level": 1
-  },
-  {
-    "question": "Quel est le groupe ethnique majoritaire au Cameroun ?",
-    "optionList": [
-      "A. Bamiléké",
-      "B. Fang",
-      "C. Bamoun",
-      "D. Beti"
-    ],
-    "answer": "A",
-    "level": 1
-  },
-  {
-    "question": "Qui est le président actuel du Cameroun ?",
-    "optionList": [
-      "A. Ahmadou Ahidjo",
-      "B. Paul Biya",
-      "C. John Ngu Foncha",
-      "D. Ruben Um Nyobé"
-    ],
-    "answer": "B",
-    "level": 2
-  },
-  {
-    "question": "Quel événement a marqué le début de la guerre d'indépendance camerounaise ?",
-    "optionList": [
-      "A. La bataille de Mungo",
-      "B. L'attaque de l'ambassade française",
-      "C. L'assassinat de Félix-Roland Moumié",
-      "D. La création de l'UNC"
-    ],
-    "answer": "C",
-    "level": 2
-  },
-  {
-    "question": "Quelle est la monnaie officielle du Cameroun ?",
-    "optionList": [
-      "A. Le franc CFA",
-      "B. Le dollar américain",
-      "C. Le naira",
-      "D. Le shilling"
-    ],
-    "answer": "A",
-    "level": 2
-  },
-  {
-    "question": "Quel est le point culminant du Cameroun ?",
-    "optionList": [
-      "A. Le mont Cameroun",
-      "B. Le mont Oku",
-      "C. Le mont Bamboutu",
-      "D. Le mont Mandara"
-    ],
-    "answer": "A",
-    "level": 2
-  },
-  {
-    "question": "Quelle réunion internationale a eu lieu au Cameroun en 1972 ?",
-    "optionList": [
-      "A. La conférence de la Baule",
-      "B. Le sommet de l'OUA",
-      "C. La conférence de Brazzaville",
-      "D. La conférence de Yaoundé"
-    ],
-    "answer": "B",
-    "level": 2
-  },
-  {
-    "question": "Quelle région du Cameroun a une forte influence anglophone ?",
-    "optionList": [
-      "A. Le Nord",
-      "B. Le Centre",
-      "C. L'Ouest",
-      "D. Le Sud"
-    ],
-    "answer": "C",
-    "level": 2
-  },
-  {
-    "question": "Quel sport est le plus populaire au Cameroun ?",
-    "optionList": [
-      "A. Le football",
-      "B. Le basket-ball",
-      "C. Le volley-ball",
-      "D. L'athlétisme"
-    ],
-    "answer": "A",
-    "level": 2
-  },
-  {
-    "question": "Quelle est la plus grande réserve naturelle du Cameroun ?",
-    "optionList": [
-      "A. Le parc national de Waza",
-      "B. Le parc national de Korup",
-      "C. Le parc national de Faro",
-      "D. Le parc national de Bénoué"
-    ],
-    "answer": "B",
-    "level": 2
-  },
-  {
-    "question": "Quel est le nom du mouvement indépendantiste qui a lutté contre la France ?",
-    "optionList": [
-      "A. UPC",
-      "B. UNC",
-      "C. PCN",
-      "D. RDPC"
-    ],
-    "answer": "A",
-    "level": 2
-  },
-  {
-    "question": "Quel pays borde le Cameroun au nord-ouest ?",
-    "optionList": [
-      "A. La République centrafricaine",
-      "B. L'Algérie",
-      "C. Le Nigeria",
-      "D. Le Tchad"
-    ],
-    "answer": "C",
-    "level": 2
-  },
-  {
-    "question": "Quelle est la deuxième ville la plus peuplée du Cameroun ?",
-    "optionList": [
-      "A. Douala",
-      "B. Yaoundé",
-      "C. Garoua",
-      "D. Bafoussam"
-    ],
-    "answer": "A",
-    "level": 3
-  },
-  {
-    "question": "Quel est le nom du lac situé au nord du Cameroun ?",
-    "optionList": [
-      "A. Le lac Albert",
-      "B. Le lac Tchad",
-      "C. Le lac Victoria",
-      "D. Le lac Tanganyika"
-    ],
-    "answer": "B",
-    "level": 3
-  },
-  {
-    "question": "Quelle région du Cameroun est réputée pour sa culture bamoun ?",
-    "optionList": [
-      "A. Le Sud",
-      "B. L'Ouest",
-      "C. Le Centre",
-      "D. Le Nord-Ouest"
-    ],
-    "answer": "B",
-    "level": 3
-  },
-  {
-    "question": "Quel était le nom du Cameroun pendant la période coloniale allemande ?",
-    "optionList": [
-      "A. Kamerun",
-      "B. Douala",
-      "C. Yaoundé",
-      "D. Loppé"
-    ],
-    "answer": "A",
-    "level": 3
-  },
-  {
-    "question": "Quelle est la principale activité économique du Cameroun ?",
-    "optionList": [
-      "A. L'agriculture",
-      "B. L'industrie pétrolière",
-      "C. Le tourisme",
-      "D. Le commerce international"
-    ],
-    "answer": "A",
-    "level": 3
-  },
-  {
-    "question": "Quel est le nom du parti politique au pouvoir depuis l'indépendance du Cameroun ?",
-    "optionList": [
-      "A. UPC",
-      "B. UNC",
-      "C. PCN",
-      "D. RDPC"
+      "C. Bertoua",
+      "D. Deng-Deng"
     ],
     "answer": "D",
-    "level": 3
+    "level": 2
   },
   {
-    "question": "Quel était le nom du leader du mouvement indépendantiste UPC ?",
-    "optionList": [
-      "A. Ahmadou Ahidjo",
-      "B. Paul Biya",
-      "C. John Ngu Foncha",
-      "D. Ruben Um Nyobé"
-    ],
-    "answer": "D",
-    "level": 3
-  },
-  {
-    "question": "Quelle est la durée maximale d'un mandat présidentiel au Cameroun ?",
-    "optionList": [
-      "A. 5 ans",
-      "B. 7 ans",
-      "C. 10 ans",
-      "D. Il n'y a pas de limite"
-    ],
-    "answer": "B",
-    "level": 3
-  },
-  {
-    "question": "Quel est le nom de la guerre civile qui a secoué le Cameroun dans les années 1960 ?",
-    "optionList": [
-      "A. La guerre anglophone",
-      "B. La guerre du Biafra",
-      "C. La guerre de la Bakassi",
-      "D. La guerre du Kamerun"
-    ],
-    "answer": "D",
-    "level": 3
-  },
-  {
-    "question": "Quel est le nom du groupe rebelle qui a combattu le gouvernement camerounais dans les années 2000 ?",
-    "optionList": [
-      "A. Boko Haram",
-      "B. LRA (Armée de résistance du Seigneur)",
-      "C. Camerounais pour la restauration",
-      "D. La secte islamique de Mbororo"
-    ],
-    "answer": "A",
-    "level": 3
-  },
-  {
-    "question": "Combien de régions administratives compte le Cameroun ?",
+    "question": "Combien de département compte ma région de l'EST-Cameroun ?",
     "optionList": [
       "A. 7",
       "B. 10",
-      "C. 14",
-      "D. 18"
+      "C. 4",
+      "D. 8"
     ],
     "answer": "C",
+    "level": 2
+  },
+  {
+    "question": "Qui a créé le centre de santé betléem pour les enfants mal nourris de Bélabo ?",
+    "optionList": [
+      "A. Mgr Lambert Heygen",
+      "B. Ruben um nyobe",
+      "C. Le roi Mbartwa",
+      "D. Nkal seleg"
+    ],
+    "answer": "D",
+    "level": 2
+  },
+  {
+    "question": "Dans quel village s'est réfugier le chef Mbartwa pour échapper aux Allemands ?",
+    "optionList": [
+      "A. Bétaré-oya",
+      "B. Ngounté",
+      "C. Ngaimona",
+      "D. Ngaimona"
+    ],
+    "answer": "B",
+    "level": 2
+  },
+  {
+    "question": "De quel ethni est issu sabbal lecco ?",
+    "optionList": [
+      "A. Sawa",
+      "B. Gbaya",
+      "C. Képéré",
+      "D. Maka'a"
+    ],
+    "answer": "C",
+    "level": 2
+  },
+  {
+    "question": "Qui était le patriarche de l'église catholique de L'EST-Cameroun de 1948 à 1999 ?",
+    "optionList": [
+      "A. Mgr jean zoa",
+      "B. Mgr Lambert Van Heygen",
+      "C. Mgr jacques Teerenstra",
+      "D. Mgr Dieudonné Wattio"
+    ],
+    "answer": "B",
+    "level": 2
+  },
+  {
+    "question": "En quelle année est née Charles Ndouma ?",
+    "optionList": [
+      "A. 1936",
+      "B. 1967",
+      "C. 1962",
+      "D. 1972"
+    ],
+    "answer": "A",
+    "level": 2
+  },
+  {
+    "question": "En quelle année est née sabbal lecco ?",
+    "optionList": [
+      "A. 1870",
+      "B. 1960",
+      "C. 1919",
+      "D. 1923"
+    ],
+    "answer": "C",
+    "level": 2
+  },
+  {
+    "question": "En quelle année sabbal lecco a-t-il été nommé premier adjoint préfectoral du lom et kadey à Batouri ?",
+    "optionList": [
+      "A. 1876",
+      "B. 1989",
+      "C. 1887",
+      "D. 1960"
+    ],
+    "answer": "D",
+    "level": 2
+  },
+  {
+    "question": "En quelle année Adjibolo fut-il élu maire de la ville de bertoua ?",
+    "optionList": [
+      "A. 1990",
+      "B. 2004",
+      "C. 1885",
+      "D. 2007"
+    ],
+    "answer": "C",
+    "level": 2
+  },
+  {
+    "question": "En quelle année Mbartwa fut capturé par les Allemands ?",
+    "optionList": [
+      "A. 1803",
+      "B. 1940",
+      "C. 1857",
+      "D. 1903"
+    ],
+    "answer": "D",
+    "level": 2
+  },
+  {
+    "question": "Qui était le fondateur de la ville de Bertoua ?",
+    "optionList": [
+      "A. Mbartwa",
+      "B. Ahmadou Ahidjo",
+      "C. Doko steave",
+      "D. Paul Biya"
+    ],
+    "answer": "A",
+    "level": 2
+  },
+  {
+    "question": "Qui était le chef de la résistance au département de la Boumba et Ngoko de 1904 à 1906 ?",
+    "optionList": [
+      "A. Sakoul",
+      "B. Zokadouma",
+      "C. Abono paulin",
+      "D. Mbartwa"
+    ],
+    "answer": "B",
+    "level": 2
+  },
+  {
+    "question": "Qui fut l'un des premiers mpyemo à etre aller à l'école ?",
+    "optionList": [
+      "A. jean calvin Metindi",
+      "B. felix sabbal lecco",
+      "C. cherles doumba",
+      "D. Mabia jean"
+    ],
+    "answer": "A",
+    "level": 3
+  },
+  {
+    "question": "En quelle année calvin Metindi a-t-il déposé sa canandidature à l'élection des députés ?",
+    "optionList": [
+      "A. 1972",
+      "B. 1990",
+      "C. 1922",
+      "D. 2004"
+    ],
+    "answer": "C",
+    "level": 3
+  },
+  {
+    "question": "Quelle était la première fonction exercée par jc Metindi ?",
+    "optionList": [
+      "A. Agriculteur",
+      "B. Député",
+      "C. Militaire",
+      "D. Enseignant"
+    ],
+    "answer": "D",
+    "level": 3
+  },
+  {
+    "question": " En quelle année jc Metindi fut-il nommé maire de la ville de Yokadouma ?",
+    "optionList": [
+      "A. 2009",
+      "B. 1884",
+      "C. 1962",
+      "D. 1960"
+    ],
+    "answer": "C",
+    "level": 3
+  },
+  {
+    "question": "Par qui fut remplacer jc Metindi à la tete de la commune de Yokadouma ?",
+    "optionList": [
+      "A. Abono paulin",
+      "B. Martin Mindjos",
+      "C. Mindjos Réné",
+      "D. Mpito raymond"
+    ],
+    "answer": "C",
+    "level": 3
+  },
+  {
+    "question": "Dans quel village Abono  joseph est-il née?",
+    "optionList": [
+      "A. Moapmpak",
+      "B. Yokadouma",
+      "C. Ngatto",
+      "D. Parny"
+    ],
+    "answer": "D",
+    "level": 3
+  },
+  {
+    "question": "En Quelle année Abono Joseph a été élu maire de Yokadouma ?",
+    "optionList": [
+      "A. 1972",
+      "B. 1984",
+      "C. 1990",
+      "D. 1987"
+    ],
+    "answer": "A",
+    "level": 3
+  },
+  {
+    "question": "Par qui Abono joseph a-t-il été remplacer à la tete de la commune ?",
+    "optionList": [
+      "A. Abono paulin",
+      "B. Jc Metindi",
+      "C. Nkal seleg",
+      "D. Mpito Biendé"
+    ],
+    "answer": "D",
+    "level": 3
+  },
+  {
+    "question": "Quel est le nom du fils d'Abono joseph ?",
+    "optionList": [
+      "A. Abono paulin",
+      "B. Abono claver",
+      "C. Abono réné",
+      "D. Abono lambert"
+    ],
+    "answer": "A",
+    "level": 3
+  },
+  {
+    "question": "De quel ethni était philemon Adjibolo?",
+    "optionList": [
+      "A. Maka'a",
+      "B. Kako",
+      "C. Mpyemo",
+      "D. Gbaya"
+    ],
+    "answer": "D",
+    "level": 3
+  },
+  {
+    "question": "Dans quelle locallité Raymond Malouma débute t-il ses études ?",
+    "optionList": [
+      "A. Ecole publique de Mbartwa",
+      "B. Ecole régionale dAbong-mbang",
+      "C. Groupe scolaire les petits princes",
+      "D.  Groupe scolaire bilingue shekina"
+    ],
+    "answer": "B",
     "level": 3
   }
 ]

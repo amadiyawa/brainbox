@@ -6,8 +6,13 @@ import com.amadiyawa.feature_base.domain.result.Result
 import com.amadiyawa.feature_base.presentation.viewmodel.BaseAction
 import com.amadiyawa.feature_base.presentation.viewmodel.BaseState
 import com.amadiyawa.feature_base.presentation.viewmodel.BaseViewModel
+import com.amadiyawa.feature_quiz.domain.enum.GameStatus
+import com.amadiyawa.feature_quiz.domain.model.Player
 import com.amadiyawa.feature_quiz.domain.model.Question
+import com.amadiyawa.feature_quiz.domain.model.Score
+import com.amadiyawa.feature_quiz.domain.usecase.GetPlayerByFullNameUseCase
 import com.amadiyawa.feature_quiz.domain.usecase.GetQuizUseCase
+import com.amadiyawa.feature_quiz.domain.usecase.SavePlayerUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,11 +21,14 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 internal class QuizViewModel(
-    private val getQuizUseCase: GetQuizUseCase
+    private val getQuizUseCase: GetQuizUseCase,
+    private val getPlayerByFullNameUseCase: GetPlayerByFullNameUseCase,
+    private val savePlayerUseCase: SavePlayerUseCase
 ) : BaseViewModel<QuizViewModel.UiState, QuizViewModel.Action>(UiState.Loading) {
 
     private var job: Job? = null
     private var timerJob: Job? = null
+    private var savePlayerJob: Job? = null
 
     private var _playerName = MutableStateFlow("")
     val playerName = _playerName.asStateFlow()
@@ -28,7 +36,7 @@ internal class QuizViewModel(
     private var _currentSelectedOption = MutableStateFlow("")
     val currentSelectedOption = _currentSelectedOption.asStateFlow()
 
-    private var _remainingTime = MutableStateFlow(10)
+    private var _remainingTime = MutableStateFlow(15)
     val remainingTime = _remainingTime.asStateFlow()
 
     fun onEnter() {
@@ -94,20 +102,45 @@ internal class QuizViewModel(
         val currentState = getCurrentState()
         if (currentState is UiState.Content) {
             val nextQuestionIndex = currentState.currentQuestionIndex + 1
+
             val action = Action.NextQuestion(
                 currentQuestionIndex = nextQuestionIndex,
                 currentSelectedOption = _currentSelectedOption.value
             )
             sendAction(action)
             _currentSelectedOption.value = ""
-            _remainingTime.value = 10
+            _remainingTime.value = 15
             startTimer()
+
+            if (currentState.gameStatus == GameStatus.FINISHED) {
+                savePlayerJob = viewModelScope.launch {
+                    saveOrUpdatePlayer(_playerName.value, currentState.points)
+                }
+            }
+        }
+    }
+
+    private suspend fun saveOrUpdatePlayer(playerName: String, points: Int) {
+        val playerResult = getPlayerByFullNameUseCase(playerName)
+        if (playerResult is Result.Success) {
+            // Update player's score list
+            val updatedScoreList = playerResult.value.scoreList.toMutableList()
+            updatedScoreList.add(Score(points)) // Assuming Score is a data class that takes an Int parameter
+            val updatedPlayer = playerResult.value.copy(scoreList = updatedScoreList)
+            savePlayerUseCase(updatedPlayer)
+        } else {
+            // Save new player
+            val newPlayer = Player(fullName = playerName, scoreList = listOf(Score(points)))
+            savePlayerUseCase(newPlayer)
         }
     }
 
     internal sealed interface Action : BaseAction<UiState> {
         data class QuestionListLoadSuccess(private val questionList: List<Question>) : Action {
-            override fun reduce(state: UiState) = UiState.Content(questionList)
+            override fun reduce(state: UiState) = UiState.Content(
+                questionList = questionList,
+                gameStatus = GameStatus.ONGOING
+            )
         }
 
         data object QuestionListLoadFailure : Action {
@@ -116,38 +149,42 @@ internal class QuizViewModel(
 
         data class SetPlayerName(private val playerName: String) : Action {
             override fun reduce(state: UiState): UiState {
-                return if (state is UiState.Content) {
-                    state.copy(playerName = playerName)
-                } else {
-                    state
+                return when (state) {
+                    is UiState.Content -> state.copy(playerName = playerName)
+                    else -> state
                 }
             }
         }
 
         data class NextQuestion(
             private val currentQuestionIndex: Int,
-            private val currentSelectedOption: String
+            private val currentSelectedOption: String,
         ) : Action {
             override fun reduce(state: UiState): UiState {
-                if (state is UiState.Content) {
-                    return if (currentQuestionIndex >= state.questionList.size) {
+                return when {
+                    state !is UiState.Content -> state
+                    (currentQuestionIndex >= state.questionList.size) ||
+                    (state.currentQuestion.level == 1 &&
+                    state.questionList[currentQuestionIndex + 1].level == 2 &&
+                    state.points < 7) ||
+                    (state.currentQuestion.level == 2 &&
+                    state.questionList[currentQuestionIndex + 1].level == 3 &&
+                    state.points < 17)
+                    -> {
                         state.copy(
                             playerName = "",
-                            points = 0,
-                            currentQuestionIndex = 0
-                        )
-                    } else {
-                        state.copy(
-                            currentQuestionIndex = currentQuestionIndex,
-                            points = if (state.currentQuestion.answer == currentSelectedOption) {
-                                state.points + 1
-                            } else {
-                                state.points
-                            }
+                            currentQuestionIndex = 0,
+                            gameStatus = GameStatus.FINISHED
                         )
                     }
-                } else {
-                    return state
+                    else -> state.copy(
+                        currentQuestionIndex = currentQuestionIndex,
+                        points = if (state.currentQuestion.answer == currentSelectedOption) {
+                            state.points + 1
+                        } else {
+                            state.points
+                        }
+                    )
                 }
             }
         }
@@ -160,7 +197,8 @@ internal class QuizViewModel(
             val questionList: List<Question>,
             val currentQuestionIndex: Int = 0,
             val playerName: String = "",
-            val points: Int = 0
+            val points: Int = 0,
+            val gameStatus: GameStatus = GameStatus.ONGOING
         ) : UiState {
             val currentQuestion: Question
                 get() = questionList[currentQuestionIndex]

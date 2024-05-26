@@ -9,7 +9,6 @@ internal class GetQuizUseCase(
     private val questionRepository: QuestionRepository
 ) {
     suspend operator fun invoke(): Result<List<Question>> {
-        Timber.d("GetQuestionListUseCase")
         return questionRepository.getAllQuestions()
     }
 }

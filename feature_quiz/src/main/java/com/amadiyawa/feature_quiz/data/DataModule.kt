@@ -4,9 +4,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.amadiyawa.feature_quiz.data.datasource.database.QuestionDao
 import com.amadiyawa.feature_quiz.data.datasource.database.QuestionDatabase
+import com.amadiyawa.feature_quiz.data.repository.PlayerRepositoryImpl
 import com.amadiyawa.feature_quiz.data.repository.QuestionRepositoryImpl
 import com.amadiyawa.feature_quiz.data.util.loadQuestionList
 import com.amadiyawa.feature_quiz.domain.model.toQuestionEntityModel
+import com.amadiyawa.feature_quiz.domain.repository.PlayerRepository
 import com.amadiyawa.feature_quiz.domain.repository.QuestionRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +18,8 @@ import timber.log.Timber
 
 internal val dataModule = module {
     single<QuestionRepository> { QuestionRepositoryImpl(get()) }
+
+    single<PlayerRepository> { PlayerRepositoryImpl(get()) }
 
     single {
         Room.databaseBuilder(
@@ -44,4 +48,6 @@ internal val dataModule = module {
     }
 
     single { get<QuestionDatabase>().questions() }
+
+    single { get<QuestionDatabase>().playerDao() }
 }

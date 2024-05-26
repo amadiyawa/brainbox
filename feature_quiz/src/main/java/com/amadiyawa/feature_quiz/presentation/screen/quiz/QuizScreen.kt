@@ -253,10 +253,10 @@ private fun NextQuizQuestion(
                     }
                     Spacer(modifier = Modifier.weight(1f))
                     Row {
-                        Text(text = "Next Question")
+                        Text(text = stringResource(id = R.string.next_question))
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = "Next Question"
+                            contentDescription = stringResource(id = R.string.next_question)
                         )
                     }
                 }
@@ -288,7 +288,7 @@ private fun GetPlayerName(
             OutlinedTextField(
                 value = playerName,
                 onValueChange = { viewModel.onPlayerNameChanged(it) },
-                label = { Text("Player name") },
+                label = { Text(text = stringResource(id = R.string.player_name)) },
                 singleLine = true,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -303,7 +303,7 @@ private fun GetPlayerName(
                     .fillMaxWidth()
                     .height(Dimen.Size.extraLarge)
             ) {
-                Text("Start Game")
+                Text(text = stringResource(id = R.string.game))
             }
         }
     }

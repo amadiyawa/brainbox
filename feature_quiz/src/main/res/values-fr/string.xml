@@ -6,4 +6,7 @@
     <string name="new_game">Nouvelle partie</string>
     <string name="quiz_language">fr</string>
     <string name="player_name_input">Veuillez entrer votre nom pour commencer le jeu</string>
+    <string name="player_name">Nom du joueur</string>
+    <string name="game">Jouer</string>
+    <string name="next_question">Question suivante</string>
 </resources>
