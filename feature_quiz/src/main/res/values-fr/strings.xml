@@ -9,4 +9,7 @@
     <string name="player_name">Nom du joueur</string>
     <string name="game">Jouer</string>
     <string name="next_question">Question suivante</string>
+    <string name="game_over">Partie terminée</string>
+    <string name="game_over_message">Cher %s, votre score est de %d sur %d.</string>
+    <string name="understood">Compris</string>
 </resources>

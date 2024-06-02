@@ -1,5 +1,6 @@
 package com.amadiyawa.feature_quiz.presentation.screen.quiz
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Mood
+import androidx.compose.material.icons.filled.MoodBad
+import androidx.compose.material.icons.filled.SentimentSatisfied
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -28,10 +32,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
@@ -40,12 +44,16 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.presentation.compose.composable.DataNotFoundAnim
+import com.amadiyawa.feature_base.presentation.compose.composable.DialogIcon
+import com.amadiyawa.feature_base.presentation.compose.composable.DialogInfo
+import com.amadiyawa.feature_base.presentation.compose.composable.DialogInfoText
 import com.amadiyawa.feature_base.presentation.compose.composable.LoadingAnimation
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleLarge
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleMedium
 import com.amadiyawa.feature_quiz.R
 import com.amadiyawa.feature_quiz.presentation.compose.composable.Toolbar
 import org.koin.androidx.compose.koinViewModel
+import java.util.Locale
 
 @Composable
 fun QuizScreen(
@@ -80,7 +88,7 @@ private fun SetupContent(
     paddingValues: PaddingValues,
     viewModel: QuizViewModel,
 ) {
-    val uiState: QuizViewModel.UiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
+    val uiState: QuizViewModel.UiState = viewModel.uiStateFlow.collectAsStateWithLifecycle().value
 
     Column(
         modifier = Modifier
@@ -109,14 +117,46 @@ private fun HandleUiState(
             QuizViewModel.UiState.Error -> {
                 DataNotFoundAnim()
             }
-            is QuizViewModel.UiState.Content -> {
-                if (it.playerName.isNotBlank()) {
-                    Quiz(
-                        content = it,
-                        viewModel = viewModel
+            is QuizViewModel.UiState.Quiz -> {
+                Quiz(
+                    quiz = it,
+                    viewModel = viewModel
+                )
+            }
+            is QuizViewModel.UiState.PlayerName -> {
+                GetPlayerName(viewModel = viewModel)
+            }
+            is QuizViewModel.UiState.GameOver -> {
+                val showScore = remember { mutableStateOf(true) }
+
+                AnimatedVisibility(visible = showScore.value) {
+                    DialogInfo(
+                        dialogInfoText = DialogInfoText(
+                            title = stringResource(id = R.string.game_over),
+                            message = stringResource(
+                                id = R.string.game_over_message,
+                                it.playerName,
+                                it.points,
+                                it.totalPoints
+                            ),
+                            confirmText = stringResource(id = R.string.understood)
+                        ),
+                        dialogIcon = getDialogIcon(score = it.points),
+                        onDismiss = {
+                            showScore.value = false
+                            viewModel.saveOrUpdatePlayer(
+                                playerName = it.playerName,
+                                points = it.points
+                            )
+                        },
+                        onConfirm = {
+                            showScore.value = false
+                            viewModel.saveOrUpdatePlayer(
+                                playerName = it.playerName,
+                                points = it.points
+                            )
+                        }
                     )
-                } else {
-                    GetPlayerName(viewModel = viewModel)
                 }
             }
         }
@@ -125,7 +165,7 @@ private fun HandleUiState(
 
 @Composable
 private fun Quiz(
-    content: QuizViewModel.UiState.Content,
+    quiz: QuizViewModel.UiState.Quiz,
     viewModel: QuizViewModel
 ) {
     Column(
@@ -135,9 +175,9 @@ private fun Quiz(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(Dimen.Padding.screenContent)
     ) {
-        LevelIndicator(content = content)
+        LevelIndicator(quiz = quiz)
         QuizQuestion(
-            content = content,
+            quiz = quiz,
             viewModel = viewModel
         )
         NextQuizQuestion(viewModel = viewModel)
@@ -145,8 +185,8 @@ private fun Quiz(
 }
 
 @Composable
-private fun LevelIndicator(content: QuizViewModel.UiState.Content) {
-    val currentLevel = content.currentQuestion.level
+private fun LevelIndicator(quiz: QuizViewModel.UiState.Quiz) {
+    val currentLevel = quiz.currentQuestion.level
 
     Row(
         modifier = Modifier
@@ -171,11 +211,11 @@ private fun RowScope.LevelLine(isActive: Boolean) {
 
 @Composable
 private fun QuizQuestion(
-    content: QuizViewModel.UiState.Content,
+    quiz: QuizViewModel.UiState.Quiz,
     viewModel: QuizViewModel
 ) {
-    val question = content.currentQuestion
-    val currentSelectedOption by viewModel.currentSelectedOption.collectAsStateWithLifecycle()
+    val question = quiz.currentQuestion
+    val currentSelectedOption = viewModel.currentSelectedOption.collectAsStateWithLifecycle()
 
     // Launch a coroutine when the QuizQuestion composable is called
     LaunchedEffect(key1 = question) {
@@ -204,13 +244,12 @@ private fun QuizQuestion(
                     modifier = Modifier
                         .fillMaxWidth(),
                     colors = CardDefaults.cardColors(
-                        containerColor = if (currentSelectedOption == option) MaterialTheme.colorScheme.primary
+                        containerColor = if (currentSelectedOption.value == option) MaterialTheme.colorScheme.primary
                         else MaterialTheme.colorScheme.surface
                     )
                 ) {
                     TextTitleMedium(
-                        modifier = Modifier
-                            .padding(Dimen.Padding.screenContent),
+                        modifier = Modifier.padding(Dimen.Padding.screenContent),
                         text = option
                     )
                 }
@@ -223,8 +262,8 @@ private fun QuizQuestion(
 private fun NextQuizQuestion(
     viewModel: QuizViewModel
 ) {
-    val currentSelectedOption by viewModel.currentSelectedOption.collectAsStateWithLifecycle()
-    val remainingTime by viewModel.remainingTime.collectAsStateWithLifecycle()
+    val currentSelectedOption = viewModel.currentSelectedOption.collectAsStateWithLifecycle()
+    val remainingTime = viewModel.remainingTime.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -236,7 +275,7 @@ private fun NextQuizQuestion(
         ) {
             Button(
                 onClick = { viewModel.nextQuestion() },
-                enabled = currentSelectedOption.isNotBlank(),
+                enabled = currentSelectedOption.value.isNotBlank(),
                 modifier = Modifier
                     .fillMaxWidth(),
                 shape = RectangleShape
@@ -247,11 +286,17 @@ private fun NextQuizQuestion(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row {
-                        val minutes = remainingTime / 60
-                        val seconds = remainingTime % 60
-                        Text(text = String.format("%02d:%02d", minutes, seconds))
+                        val minutes = remainingTime.value / 60
+                        val seconds = remainingTime.value % 60
+                        Text(
+                            text = String.format(
+                                Locale.getDefault(), "%02d:%02d", minutes, seconds
+                            )
+                        )
                     }
+
                     Spacer(modifier = Modifier.weight(1f))
+
                     Row {
                         Text(text = stringResource(id = R.string.next_question))
                         Icon(
@@ -269,7 +314,7 @@ private fun NextQuizQuestion(
 private fun GetPlayerName(
     viewModel: QuizViewModel
 ) {
-    val playerName by viewModel.playerName.collectAsStateWithLifecycle()
+    val playerName = viewModel.playerName.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(
@@ -286,7 +331,7 @@ private fun GetPlayerName(
             )
 
             OutlinedTextField(
-                value = playerName,
+                value = playerName.value,
                 onValueChange = { viewModel.onPlayerNameChanged(it) },
                 label = { Text(text = stringResource(id = R.string.player_name)) },
                 singleLine = true,
@@ -298,7 +343,7 @@ private fun GetPlayerName(
 
             Button(
                 onClick = { viewModel.setPlayerName() },
-                enabled = playerName.isNotBlank() && playerName.length > 2,
+                enabled = playerName.value.isNotBlank() && playerName.value.length > 2,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(Dimen.Size.extraLarge)
@@ -306,5 +351,25 @@ private fun GetPlayerName(
                 Text(text = stringResource(id = R.string.game))
             }
         }
+    }
+}
+
+@Composable
+private fun getDialogIcon(score: Int) : DialogIcon {
+    return if (score < 10) {
+        DialogIcon(
+            icon = Icons.Filled.MoodBad,
+            tint = MaterialTheme.colorScheme.error
+        )
+    } else if (score < 20) {
+        DialogIcon(
+            icon = Icons.Filled.SentimentSatisfied,
+            tint = MaterialTheme.colorScheme.secondary
+        )
+    } else {
+        DialogIcon(
+            icon = Icons.Filled.Mood,
+            tint = MaterialTheme.colorScheme.primary
+        )
     }
 }

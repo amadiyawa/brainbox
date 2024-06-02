@@ -6,7 +6,6 @@ import com.amadiyawa.feature_base.domain.result.Result
 import com.amadiyawa.feature_base.presentation.viewmodel.BaseAction
 import com.amadiyawa.feature_base.presentation.viewmodel.BaseState
 import com.amadiyawa.feature_base.presentation.viewmodel.BaseViewModel
-import com.amadiyawa.feature_quiz.domain.enum.GameStatus
 import com.amadiyawa.feature_quiz.domain.model.Player
 import com.amadiyawa.feature_quiz.domain.model.Question
 import com.amadiyawa.feature_quiz.domain.model.Score
@@ -30,13 +29,15 @@ internal class QuizViewModel(
     private var timerJob: Job? = null
     private var savePlayerJob: Job? = null
 
+    private var _questionList = MutableStateFlow(emptyList<Question>())
+
     private var _playerName = MutableStateFlow("")
     val playerName = _playerName.asStateFlow()
 
     private var _currentSelectedOption = MutableStateFlow("")
     val currentSelectedOption = _currentSelectedOption.asStateFlow()
 
-    private var _remainingTime = MutableStateFlow(15)
+    private var _remainingTime = MutableStateFlow(1)
     val remainingTime = _remainingTime.asStateFlow()
 
     fun onEnter() {
@@ -57,7 +58,8 @@ internal class QuizViewModel(
                         if (result.value.isEmpty()) {
                             Action.QuestionListLoadFailure
                         } else {
-                            Action.QuestionListLoadSuccess(result.value)
+                            _questionList.value = result.value
+                            Action.QuestionListLoadSuccess
                         }
                     }
                     is Result.Failure -> {
@@ -75,8 +77,11 @@ internal class QuizViewModel(
 
     fun setPlayerName() {
         val currentState = getCurrentState()
-        if (currentState is UiState.Content) {
-            val action = Action.SetPlayerName(_playerName.value)
+        if (currentState is UiState.PlayerName) {
+            val action = Action.SetPlayerName(
+                playerName = _playerName.value,
+                questionList = _questionList.value
+            )
             sendAction(action)
         }
     }
@@ -100,7 +105,7 @@ internal class QuizViewModel(
 
     fun nextQuestion() {
         val currentState = getCurrentState()
-        if (currentState is UiState.Content) {
+        if (currentState is UiState.Quiz) {
             val nextQuestionIndex = currentState.currentQuestionIndex + 1
 
             val action = Action.NextQuestion(
@@ -109,49 +114,58 @@ internal class QuizViewModel(
             )
             sendAction(action)
             _currentSelectedOption.value = ""
-            _remainingTime.value = 15
+            _remainingTime.value = 1
             startTimer()
-
-            if (currentState.gameStatus == GameStatus.FINISHED) {
-                savePlayerJob = viewModelScope.launch {
-                    saveOrUpdatePlayer(_playerName.value, currentState.points)
-                }
-            }
         }
     }
 
-    private suspend fun saveOrUpdatePlayer(playerName: String, points: Int) {
-        val playerResult = getPlayerByFullNameUseCase(playerName)
-        if (playerResult is Result.Success) {
-            // Update player's score list
-            val updatedScoreList = playerResult.value.scoreList.toMutableList()
-            updatedScoreList.add(Score(points)) // Assuming Score is a data class that takes an Int parameter
-            val updatedPlayer = playerResult.value.copy(scoreList = updatedScoreList)
-            savePlayerUseCase(updatedPlayer)
-        } else {
-            // Save new player
-            val newPlayer = Player(fullName = playerName, scoreList = listOf(Score(points)))
-            savePlayerUseCase(newPlayer)
+    fun saveOrUpdatePlayer(playerName: String, points: Int) {
+        // Cancel the previous job
+        if (savePlayerJob != null) {
+            savePlayerJob?.cancel()
+            savePlayerJob = null
         }
+
+        savePlayerJob = viewModelScope.launch {
+            val playerResult = getPlayerByFullNameUseCase(playerName)
+            if (playerResult is Result.Success) {
+                // Update player's score list
+                playerResult.value.scoreList.add(Score(points))
+                savePlayerUseCase(playerResult.value)
+            } else {
+                // Save new player
+                val newPlayer = Player(
+                    fullName = playerName,
+                    scoreList = mutableListOf(Score(points))
+                )
+                savePlayerUseCase(newPlayer)
+            }
+        }
+
+        val action = Action.QuestionListLoadSuccess
+        sendAction(action)
     }
 
     internal sealed interface Action : BaseAction<UiState> {
-        data class QuestionListLoadSuccess(private val questionList: List<Question>) : Action {
-            override fun reduce(state: UiState) = UiState.Content(
-                questionList = questionList,
-                gameStatus = GameStatus.ONGOING
-            )
+        data object QuestionListLoadSuccess : Action {
+            override fun reduce(state: UiState) = UiState.PlayerName
         }
 
         data object QuestionListLoadFailure : Action {
             override fun reduce(state: UiState) = UiState.Error
         }
 
-        data class SetPlayerName(private val playerName: String) : Action {
+        data class SetPlayerName(
+            private val playerName: String,
+            private val questionList: List<Question>
+        ) : Action {
             override fun reduce(state: UiState): UiState {
                 return when (state) {
-                    is UiState.Content -> state.copy(playerName = playerName)
-                    else -> state
+                    is UiState.Quiz -> state.copy(playerName = playerName)
+                    else -> UiState.Quiz(
+                        questionList = questionList,
+                        playerName = playerName
+                    )
                 }
             }
         }
@@ -162,7 +176,7 @@ internal class QuizViewModel(
         ) : Action {
             override fun reduce(state: UiState): UiState {
                 return when {
-                    state !is UiState.Content -> state
+                    state !is UiState.Quiz -> state
                     (currentQuestionIndex >= state.questionList.size) ||
                     (state.currentQuestion.level == 1 &&
                     state.questionList[currentQuestionIndex + 1].level == 2 &&
@@ -171,10 +185,10 @@ internal class QuizViewModel(
                     state.questionList[currentQuestionIndex + 1].level == 3 &&
                     state.points < 17)
                     -> {
-                        state.copy(
-                            playerName = "",
-                            currentQuestionIndex = 0,
-                            gameStatus = GameStatus.FINISHED
+                        return UiState.GameOver(
+                            playerName = state.playerName,
+                            points = state.points,
+                            totalPoints = state.questionList.size
                         )
                     }
                     else -> state.copy(
@@ -193,16 +207,21 @@ internal class QuizViewModel(
 
     @Immutable
     internal sealed interface UiState : BaseState {
-        data class Content(
+        data class Quiz(
             val questionList: List<Question>,
             val currentQuestionIndex: Int = 0,
             val playerName: String = "",
-            val points: Int = 0,
-            val gameStatus: GameStatus = GameStatus.ONGOING
+            val points: Int = 0
         ) : UiState {
             val currentQuestion: Question
                 get() = questionList[currentQuestionIndex]
         }
+        data class GameOver(
+            val playerName: String,
+            val points: Int,
+            val totalPoints: Int
+        ) : UiState
+        data object PlayerName : UiState
         data object Loading : UiState
         data object Error : UiState
     }
@@ -210,5 +229,7 @@ internal class QuizViewModel(
     override fun onCleared() {
         super.onCleared()
         job?.cancel()
+        timerJob?.cancel()
+        savePlayerJob?.cancel()
     }
 }
