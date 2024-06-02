@@ -5,7 +5,7 @@ import com.amadiyawa.feature_quiz.data.datasource.database.model.PlayerEntityMod
 internal data class Player(
     val id: Int? = null,
     val fullName: String,
-    val scoreList: List<Score>
+    val scoreList: MutableList<Score>
 )
 
 internal fun Player.toPlayerEntityModel() = PlayerEntityModel(

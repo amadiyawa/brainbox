@@ -15,6 +15,13 @@ object Dimen {
         val extraExtraLarge = 64.dp
     }
 
+    object DialogCardSize {
+        val minWidthPercent = 0.6f  // 60% of screen width
+        val minHeightPercent = 0.4f  // 40% of screen height
+        val maxWidthPercent = 0.8f  // 80% of screen width
+        val maxHeightPercent = 0.6f  // 60% of screen height
+    }
+
     object Size {
         val extraSmall = 16.dp
         val small = 24.dp
