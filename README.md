@@ -20,6 +20,9 @@ The main focus of this game is to allow player to learn history of a particular 
 - Display list of all player's scores
 - Define player name
 
+## Screenshots
+app screenshots
+
 ## Architecture
 
 The project follow the MVVM pattern, respects the standards of Clean Architecture and use Jetpack Compose.

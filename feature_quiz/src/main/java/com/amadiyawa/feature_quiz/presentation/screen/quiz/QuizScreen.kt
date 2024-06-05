@@ -1,5 +1,6 @@
 package com.amadiyawa.feature_quiz.presentation.screen.quiz
 
+import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -38,9 +38,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.presentation.compose.composable.DataNotFoundAnim
@@ -176,11 +176,17 @@ private fun Quiz(
         verticalArrangement = Arrangement.spacedBy(Dimen.Padding.screenContent)
     ) {
         LevelIndicator(quiz = quiz)
+
+        Spacer(modifier = Modifier.weight(1f))
+
         QuizQuestion(
             quiz = quiz,
             viewModel = viewModel
         )
-        NextQuizQuestion(viewModel = viewModel)
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        NextQuizQuestion(viewModel = viewModel, answer = quiz.currentQuestion.answer)
     }
 }
 
@@ -206,51 +212,50 @@ private fun RowScope.LevelLine(
 ) {
     when (level) {
         1 -> {
-            Row(
+            Box(
                 modifier = Modifier
                     .weight(1f)
-                    .height(64.dp), // Increase the height to accommodate the circle and rectangle
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
+                    .height(Dimen.Size.extraLarge)
             ) {
-                // Circle with text at its center
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .width(50.dp) // Set the width of the circle
-                        .height(50.dp) // Set the height of the circle
-                        .background(
-                            color = getActiveColor(isActive = isActive),
-                            shape = CircleShape
-                        )
-                ) {
-                    TextTitleMedium(text = "1") // Replace "1" with the actual text you want to display
-                }
-
-                // Rectangle
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(20.dp) // Set the height of the rectangle
-                        .offset(x = (-10).dp) // Offset the rectangle to the left
+                        .height(Dimen.Size.extraSmall)
+                        .padding(start = Dimen.Spacing.medium)
+                        .align(Alignment.Center)
                         .background(
                             color = getActiveColor(isActive = isActive),
                             shape = RectangleShape
                         )
                 )
+
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .width(Dimen.Size.large)
+                        .height(Dimen.Size.large)
+                        .align(Alignment.CenterStart)
+                        .background(
+                            color = getActiveColor(isActive = isActive),
+                            shape = CircleShape
+                        )
+                ) {
+                    TextTitleMedium(text = "1")
+                }
             }
         }
         2 -> {
-            Row(
+            Box(
                 modifier = Modifier
                     .weight(1f)
-                    .height(64.dp), // Increase the height to accommodate the circle and rectangle
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
+                    .height(Dimen.Size.extraLarge)
             ) {
+                // First Box
                 Box(
                     modifier = Modifier
-                        .height(20.dp) // Set the height of the rectangle
+                        .fillMaxWidth()
+                        .height(Dimen.Size.extraSmall)
+                        .align(Alignment.Center)
                         .background(
                             color = getActiveColor(isActive = isActive),
                             shape = RectangleShape
@@ -260,41 +265,30 @@ private fun RowScope.LevelLine(
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .width(50.dp) // Set the width of the circle
-                        .height(50.dp) // Set the height of the circle
+                        .align(Alignment.Center)
+                        .width(Dimen.Size.large)
+                        .height(Dimen.Size.large)
                         .background(
                             color = getActiveColor(isActive = isActive),
                             shape = CircleShape
                         )
                 ) {
-                    TextTitleMedium(text = "2") // Replace "1" with the actual text you want to display
+                    TextTitleMedium(text = "2")
                 }
-
-                // Rectangle
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(20.dp) // Set the height of the rectangle
-                        .offset(x = (-10).dp) // Offset the rectangle to the left
-                        .background(
-                            color = getActiveColor(isActive = isActive),
-                            shape = RectangleShape
-                        )
-                )
             }
         }
         3 -> {
-            Row(
+            Box(
                 modifier = Modifier
                     .weight(1f)
-                    .height(64.dp), // Increase the height to accommodate the circle and rectangle
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
+                    .height(Dimen.Size.extraLarge),
             ) {
                 Box(
                     modifier = Modifier
-                        .height(20.dp) // Set the height of the rectangle
-                        .offset(x = 10.dp) // Offset the rectangle to the left
+                        .fillMaxWidth()
+                        .height(Dimen.Size.extraSmall)
+                        .padding(end = Dimen.Spacing.medium)
+                        .align(Alignment.Center)
                         .background(
                             color = getActiveColor(isActive = isActive),
                             shape = RectangleShape
@@ -304,8 +298,9 @@ private fun RowScope.LevelLine(
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .width(50.dp) // Set the width of the circle
-                        .height(50.dp) // Set the height of the circle
+                        .width(Dimen.Size.large)
+                        .height(Dimen.Size.large)
+                        .align(Alignment.CenterEnd)
                         .background(
                             color = getActiveColor(isActive = isActive),
                             shape = CircleShape
@@ -337,8 +332,7 @@ private fun QuizQuestion(
         verticalArrangement = Arrangement.spacedBy(Dimen.Padding.screenContent)
     ){
         TextTitleLarge(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             text = question.question
         )
 
@@ -369,10 +363,12 @@ private fun QuizQuestion(
 
 @Composable
 private fun NextQuizQuestion(
-    viewModel: QuizViewModel
+    viewModel: QuizViewModel,
+    answer: String
 ) {
     val currentSelectedOption = viewModel.currentSelectedOption.collectAsStateWithLifecycle()
     val remainingTime = viewModel.remainingTime.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -383,7 +379,14 @@ private fun NextQuizQuestion(
                 .fillMaxWidth()
         ) {
             Button(
-                onClick = { viewModel.nextQuestion() },
+                onClick = {
+                    handleNextQuestion(
+                        viewModel = viewModel,
+                        currentSelectedOption = currentSelectedOption.value,
+                        answer = answer,
+                        context = context
+                    )
+                },
                 enabled = currentSelectedOption.value.isNotBlank(),
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -406,8 +409,11 @@ private fun NextQuizQuestion(
 
                     Spacer(modifier = Modifier.weight(1f))
 
+                    Text(text = stringResource(id = R.string.next_question))
+
+                    Spacer(modifier = Modifier.weight(1f))
+
                     Row {
-                        Text(text = stringResource(id = R.string.next_question))
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                             contentDescription = stringResource(id = R.string.next_question)
@@ -466,4 +472,17 @@ private fun GetPlayerName(
 @Composable
 fun getActiveColor(isActive: Boolean): Color {
     return if (isActive) MaterialTheme.colorScheme.primary else Color.Gray
+}
+
+private fun handleNextQuestion(
+    viewModel: QuizViewModel,
+    currentSelectedOption: String,
+    answer: String,
+    context: Context
+) {
+    val isAnswerCorrect = currentSelectedOption.isNotEmpty() && currentSelectedOption.first().toString() == answer
+    viewModel.nextQuestion(
+        isAnswerCorrect = isAnswerCorrect,
+        context = context
+    )
 }

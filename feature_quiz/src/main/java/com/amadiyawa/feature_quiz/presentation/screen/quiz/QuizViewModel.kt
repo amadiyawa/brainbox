@@ -1,17 +1,20 @@
 package com.amadiyawa.feature_quiz.presentation.screen.quiz
 
+import android.content.Context
+import android.media.MediaPlayer
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.viewModelScope
 import com.amadiyawa.feature_base.domain.result.Result
 import com.amadiyawa.feature_base.presentation.viewmodel.BaseAction
 import com.amadiyawa.feature_base.presentation.viewmodel.BaseState
 import com.amadiyawa.feature_base.presentation.viewmodel.BaseViewModel
+import com.amadiyawa.feature_quiz.R
 import com.amadiyawa.feature_quiz.domain.model.Player
 import com.amadiyawa.feature_quiz.domain.model.Question
 import com.amadiyawa.feature_quiz.domain.model.Score
+import com.amadiyawa.feature_quiz.domain.usecase.CreatePlayerUseCase
 import com.amadiyawa.feature_quiz.domain.usecase.GetPlayerByFullNameUseCase
 import com.amadiyawa.feature_quiz.domain.usecase.GetQuizUseCase
-import com.amadiyawa.feature_quiz.domain.usecase.CreatePlayerUseCase
 import com.amadiyawa.feature_quiz.domain.usecase.UpdatePlayerUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -30,6 +33,7 @@ internal class QuizViewModel(
     private var job: Job? = null
     private var timerJob: Job? = null
     private var savePlayerJob: Job? = null
+    private var songPlayerJob: Job? = null
 
     private var _questionList = MutableStateFlow(emptyList<Question>())
 
@@ -39,8 +43,10 @@ internal class QuizViewModel(
     private var _currentSelectedOption = MutableStateFlow("")
     val currentSelectedOption = _currentSelectedOption.asStateFlow()
 
-    private var _remainingTime = MutableStateFlow(3)
+    private var _remainingTime = MutableStateFlow(10)
     val remainingTime = _remainingTime.asStateFlow()
+
+    private var _soundToPlay = MutableStateFlow<Int?>(null)
 
     fun onEnter() {
         getQuestionList()
@@ -97,7 +103,9 @@ internal class QuizViewModel(
                 delay(1000)
                 _remainingTime.value--
             }
-            nextQuestion()
+            nextQuestion(
+                isAnswerCorrect = false
+            )
         }
     }
 
@@ -105,7 +113,15 @@ internal class QuizViewModel(
         _currentSelectedOption.value = option
     }
 
-    fun nextQuestion() {
+    fun nextQuestion(
+        isAnswerCorrect: Boolean? = null,
+        context: Context? = null
+    ) {
+        if (isAnswerCorrect != null && context != null) {
+            _soundToPlay.value = if (isAnswerCorrect) R.raw.correct_answer else R.raw.wrong_answer
+            playSound(isAnswerCorrect, context)
+        }
+
         val currentState = getCurrentState()
         if (currentState is UiState.Quiz) {
             val nextQuestionIndex = currentState.currentQuestionIndex + 1
@@ -116,8 +132,31 @@ internal class QuizViewModel(
             )
             sendAction(action)
             _currentSelectedOption.value = ""
-            _remainingTime.value = 3
+            _remainingTime.value = 10
             startTimer()
+        }
+    }
+
+    private fun playSound(
+        isAnswerCorrect: Boolean,
+        context: Context
+    ) {
+        if (songPlayerJob != null) {
+            songPlayerJob?.cancel()
+            songPlayerJob = null
+        }
+
+        songPlayerJob = viewModelScope.launch {
+            val soundResId = if (isAnswerCorrect) R.raw.correct_answer else R.raw.wrong_answer
+            val mediaPlayer = MediaPlayer.create(
+                context,
+                soundResId
+            )
+            mediaPlayer.start()
+
+            mediaPlayer.setOnCompletionListener { player ->
+                player.release()
+            }
         }
     }
 
