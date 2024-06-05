@@ -11,7 +11,8 @@ import com.amadiyawa.feature_quiz.domain.model.Question
 import com.amadiyawa.feature_quiz.domain.model.Score
 import com.amadiyawa.feature_quiz.domain.usecase.GetPlayerByFullNameUseCase
 import com.amadiyawa.feature_quiz.domain.usecase.GetQuizUseCase
-import com.amadiyawa.feature_quiz.domain.usecase.SavePlayerUseCase
+import com.amadiyawa.feature_quiz.domain.usecase.CreatePlayerUseCase
+import com.amadiyawa.feature_quiz.domain.usecase.UpdatePlayerUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +23,8 @@ import timber.log.Timber
 internal class QuizViewModel(
     private val getQuizUseCase: GetQuizUseCase,
     private val getPlayerByFullNameUseCase: GetPlayerByFullNameUseCase,
-    private val savePlayerUseCase: SavePlayerUseCase
+    private val createPlayerUseCase: CreatePlayerUseCase,
+    private val updatePlayerUseCase: UpdatePlayerUseCase
 ) : BaseViewModel<QuizViewModel.UiState, QuizViewModel.Action>(UiState.Loading) {
 
     private var job: Job? = null
@@ -37,7 +39,7 @@ internal class QuizViewModel(
     private var _currentSelectedOption = MutableStateFlow("")
     val currentSelectedOption = _currentSelectedOption.asStateFlow()
 
-    private var _remainingTime = MutableStateFlow(1)
+    private var _remainingTime = MutableStateFlow(3)
     val remainingTime = _remainingTime.asStateFlow()
 
     fun onEnter() {
@@ -114,7 +116,7 @@ internal class QuizViewModel(
             )
             sendAction(action)
             _currentSelectedOption.value = ""
-            _remainingTime.value = 1
+            _remainingTime.value = 3
             startTimer()
         }
     }
@@ -129,16 +131,18 @@ internal class QuizViewModel(
         savePlayerJob = viewModelScope.launch {
             val playerResult = getPlayerByFullNameUseCase(playerName)
             if (playerResult is Result.Success) {
-                // Update player's score list
-                playerResult.value.scoreList.add(Score(points))
-                savePlayerUseCase(playerResult.value)
+                val player = playerResult.value
+                player.scoreList.add(Score(points))
+                updatePlayerUseCase(
+                    player.id!!,
+                    player.scoreList
+                )
             } else {
-                // Save new player
-                val newPlayer = Player(
+                val player = Player(
                     fullName = playerName,
                     scoreList = mutableListOf(Score(points))
                 )
-                savePlayerUseCase(newPlayer)
+                createPlayerUseCase(player)
             }
         }
 
@@ -193,7 +197,7 @@ internal class QuizViewModel(
                     }
                     else -> state.copy(
                         currentQuestionIndex = currentQuestionIndex,
-                        points = if (state.currentQuestion.answer == currentSelectedOption) {
+                        points = if (currentSelectedOption.isNotEmpty() && state.currentQuestion.answer == currentSelectedOption.first().toString()) {
                             state.points + 1
                         } else {
                             state.points

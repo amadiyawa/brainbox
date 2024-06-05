@@ -4,7 +4,7 @@ import com.amadiyawa.feature_quiz.data.datasource.database.model.QuestionEntityM
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Question(
+internal data class Question(
     val id: Int? = null,
     val question: String,
     val optionList: List<String>,

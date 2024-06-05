@@ -4,9 +4,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.TypeConverters
 import com.amadiyawa.feature_quiz.data.datasource.database.model.PlayerEntityModel
+import com.amadiyawa.feature_quiz.data.datasource.database.model.ScoreEntityModel
+import com.amadiyawa.feature_quiz.data.datasource.database.model.ScoresTypeConverter
 
 @Dao
+@TypeConverters(ScoresTypeConverter::class)
 internal interface PlayerDao {
     @Query("SELECT * FROM players")
     suspend fun getAllPlayers(): List<PlayerEntityModel>
@@ -25,6 +29,12 @@ internal interface PlayerDao {
 
     @Query("DELETE FROM players WHERE fullName = :fullName")
     suspend fun deletePlayerByFullName(fullName: String)
+
+    @Query("UPDATE players SET scoreList = :scoreList WHERE id = :id")
+    suspend fun updatePlayer(
+        id: Int,
+        scoreList: List<ScoreEntityModel>
+    )
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlayer(player: PlayerEntityModel)

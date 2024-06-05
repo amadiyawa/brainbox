@@ -21,7 +21,8 @@ import com.amadiyawa.feature_base.R
 fun ExpandableRow(
     modifier: Modifier = Modifier,
     expanded: Boolean,
-    onRowClick: () -> Unit
+    onRowClick: () -> Unit,
+    fixedLabel: String = ""
 ) {
     Row(
         modifier = Modifier
@@ -33,7 +34,7 @@ fun ExpandableRow(
             modifier = modifier
         ) {
             Text(
-                text = if (expanded) stringResource(id = R.string.show_less) else stringResource(id = R.string.show_more),
+                text = if (fixedLabel.isNotEmpty()) fixedLabel else if (expanded) stringResource(id = R.string.show_less) else stringResource(id = R.string.show_more),
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold

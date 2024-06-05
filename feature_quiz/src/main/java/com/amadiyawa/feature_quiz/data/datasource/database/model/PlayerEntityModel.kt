@@ -20,12 +20,12 @@ internal data class PlayerEntityModel(
 internal fun PlayerEntityModel.toPlayer() = Player(
     id = id,
     fullName = fullName,
-    scoreList = scoreList.map { it.toPlayerScore() }
+    scoreList = scoreList.map { it.toPlayerScore() }.toMutableList()
 )
 
 internal class ScoresTypeConverter {
     @TypeConverter
-    fun ScoreListToString(optionList: List<ScoreEntityModel>): String {
+    fun scoreListToString(optionList: List<ScoreEntityModel>): String {
         return Json.encodeToString(ListSerializer(ScoreEntityModel.serializer()), optionList)
     }
 

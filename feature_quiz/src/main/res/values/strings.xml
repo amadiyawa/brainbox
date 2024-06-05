@@ -12,4 +12,6 @@
     <string name="game_over">Game over</string>
     <string name="game_over_message">Dear %s, your score is %d out of %d.</string>
     <string name="understood">Understood</string>
+    <string name="scores">Scores</string>
+    <string name="at">at</string>
 </resources>

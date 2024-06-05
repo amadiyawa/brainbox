@@ -1,8 +1,11 @@
 package com.amadiyawa.feature_quiz.presentation.screen.scorelist
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,20 +17,32 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amadiyawa.feature_base.common.res.Dimen
+import com.amadiyawa.feature_base.common.util.formatDate
+import com.amadiyawa.feature_base.common.util.formatTime
 import com.amadiyawa.feature_base.common.util.isScrollingUp
+import com.amadiyawa.feature_base.presentation.compose.composable.ExpandableRow
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleLarge
+import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleMedium
+import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleSmall
+import com.amadiyawa.feature_quiz.R
 import com.amadiyawa.feature_quiz.domain.model.Player
+import com.amadiyawa.feature_quiz.domain.model.Score
 import com.amadiyawa.feature_quiz.presentation.compose.composable.FloatingActionButton
 import com.amadiyawa.feature_quiz.presentation.compose.composable.Toolbar
+import com.amadiyawa.feature_quiz.presentation.compose.composable.getScoreIcon
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -117,21 +132,74 @@ private fun HandleUiState(
 
 @Composable
 private fun UserCard(player: Player) {
+    val expandedScores = remember { mutableStateOf (false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 10.dp),
+            .padding(bottom = 6.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
+            containerColor = MaterialTheme.colorScheme.surface
         )
     ) {
         Row(
-            modifier = Modifier.padding(Dimen.Spacing.medium),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Dimen.Spacing.large),
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextTitleLarge(
                 text = player.fullName,
             )
+        }
+
+        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.background)
+
+        ExpandableRow(
+            modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
+            expanded = expandedScores.value,
+            fixedLabel = stringResource(id = R.string.scores),
+            onRowClick = {
+                expandedScores.value = !expandedScores.value
+            }
+        )
+
+        AnimatedVisibility(visible = expandedScores.value) {
+            PlayerScores(scoreList = player.scoreList)
+        }
+    }
+}
+
+@Composable
+private fun PlayerScores(
+    scoreList: List<Score>
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(Dimen.Spacing.large),
+        verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium)
+    ) {
+        scoreList.forEach {
+            val icon = getScoreIcon(score = it.point)
+            val time = formatDate(it.createdDate) + " " + stringResource(id = R.string.at) + " " +
+                    formatTime(it.createdDate)
+            Row {
+                TextTitleMedium(text = it.point.toString())
+
+                Spacer(Modifier.weight(1f))
+
+                TextTitleSmall(text = time)
+
+                Spacer(Modifier.weight(1f))
+
+                Icon(
+                    imageVector = icon.icon,
+                    contentDescription = it.point.toString(),
+                    tint = icon.tint
+                )
+            }
         }
     }
 }

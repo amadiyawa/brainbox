@@ -15,13 +15,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Mood
-import androidx.compose.material.icons.filled.MoodBad
-import androidx.compose.material.icons.filled.SentimentSatisfied
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,7 +44,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.presentation.compose.composable.DataNotFoundAnim
-import com.amadiyawa.feature_base.presentation.compose.composable.DialogIcon
 import com.amadiyawa.feature_base.presentation.compose.composable.DialogInfo
 import com.amadiyawa.feature_base.presentation.compose.composable.DialogInfoText
 import com.amadiyawa.feature_base.presentation.compose.composable.LoadingAnimation
@@ -52,6 +51,7 @@ import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleLarge
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleMedium
 import com.amadiyawa.feature_quiz.R
 import com.amadiyawa.feature_quiz.presentation.compose.composable.Toolbar
+import com.amadiyawa.feature_quiz.presentation.compose.composable.getScoreIcon
 import org.koin.androidx.compose.koinViewModel
 import java.util.Locale
 
@@ -141,7 +141,7 @@ private fun HandleUiState(
                             ),
                             confirmText = stringResource(id = R.string.understood)
                         ),
-                        dialogIcon = getDialogIcon(score = it.points),
+                        dialogIcon = getScoreIcon(score = it.points),
                         onDismiss = {
                             showScore.value = false
                             viewModel.saveOrUpdatePlayer(
@@ -193,20 +193,129 @@ private fun LevelIndicator(quiz: QuizViewModel.UiState.Quiz) {
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        LevelLine(isActive = currentLevel >= 1)
-        LevelLine(isActive = currentLevel >= 2)
-        LevelLine(isActive = currentLevel >= 3)
+        LevelLine(isActive = currentLevel >= 1, level = 1)
+        LevelLine(isActive = currentLevel >= 2, level = 2)
+        LevelLine(isActive = currentLevel >= 3, level = 3)
     }
 }
 
 @Composable
-private fun RowScope.LevelLine(isActive: Boolean) {
-    Row(
-        modifier = Modifier
-            .height(4.dp)
-            .weight(1f)
-            .background(if (isActive) MaterialTheme.colorScheme.primary else Color.Gray)
-    ){}
+private fun RowScope.LevelLine(
+    isActive: Boolean,
+    level: Int
+) {
+    when (level) {
+        1 -> {
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(64.dp), // Increase the height to accommodate the circle and rectangle
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Circle with text at its center
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .width(50.dp) // Set the width of the circle
+                        .height(50.dp) // Set the height of the circle
+                        .background(
+                            color = getActiveColor(isActive = isActive),
+                            shape = CircleShape
+                        )
+                ) {
+                    TextTitleMedium(text = "1") // Replace "1" with the actual text you want to display
+                }
+
+                // Rectangle
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(20.dp) // Set the height of the rectangle
+                        .offset(x = (-10).dp) // Offset the rectangle to the left
+                        .background(
+                            color = getActiveColor(isActive = isActive),
+                            shape = RectangleShape
+                        )
+                )
+            }
+        }
+        2 -> {
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(64.dp), // Increase the height to accommodate the circle and rectangle
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .height(20.dp) // Set the height of the rectangle
+                        .background(
+                            color = getActiveColor(isActive = isActive),
+                            shape = RectangleShape
+                        )
+                )
+
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .width(50.dp) // Set the width of the circle
+                        .height(50.dp) // Set the height of the circle
+                        .background(
+                            color = getActiveColor(isActive = isActive),
+                            shape = CircleShape
+                        )
+                ) {
+                    TextTitleMedium(text = "2") // Replace "1" with the actual text you want to display
+                }
+
+                // Rectangle
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(20.dp) // Set the height of the rectangle
+                        .offset(x = (-10).dp) // Offset the rectangle to the left
+                        .background(
+                            color = getActiveColor(isActive = isActive),
+                            shape = RectangleShape
+                        )
+                )
+            }
+        }
+        3 -> {
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(64.dp), // Increase the height to accommodate the circle and rectangle
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .height(20.dp) // Set the height of the rectangle
+                        .offset(x = 10.dp) // Offset the rectangle to the left
+                        .background(
+                            color = getActiveColor(isActive = isActive),
+                            shape = RectangleShape
+                        )
+                )
+
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .width(50.dp) // Set the width of the circle
+                        .height(50.dp) // Set the height of the circle
+                        .background(
+                            color = getActiveColor(isActive = isActive),
+                            shape = CircleShape
+                        )
+                ) {
+                    TextTitleMedium(text = "3")
+                }
+            }
+        }
+    }
 }
 
 @Composable
@@ -355,21 +464,6 @@ private fun GetPlayerName(
 }
 
 @Composable
-private fun getDialogIcon(score: Int) : DialogIcon {
-    return if (score < 10) {
-        DialogIcon(
-            icon = Icons.Filled.MoodBad,
-            tint = MaterialTheme.colorScheme.error
-        )
-    } else if (score < 20) {
-        DialogIcon(
-            icon = Icons.Filled.SentimentSatisfied,
-            tint = MaterialTheme.colorScheme.secondary
-        )
-    } else {
-        DialogIcon(
-            icon = Icons.Filled.Mood,
-            tint = MaterialTheme.colorScheme.primary
-        )
-    }
+fun getActiveColor(isActive: Boolean): Color {
+    return if (isActive) MaterialTheme.colorScheme.primary else Color.Gray
 }

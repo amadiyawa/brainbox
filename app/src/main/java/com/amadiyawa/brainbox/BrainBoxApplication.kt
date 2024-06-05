@@ -1,7 +1,6 @@
 package com.amadiyawa.brainbox
 
 import android.app.Application
-import com.amadiyawa.feature_quiz.data.util.loadQuestionList
 import com.amadiyawa.feature_quiz.featureQuizModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

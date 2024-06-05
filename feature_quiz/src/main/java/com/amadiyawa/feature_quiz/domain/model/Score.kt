@@ -2,7 +2,7 @@ package com.amadiyawa.feature_quiz.domain.model
 
 import com.amadiyawa.feature_quiz.data.datasource.database.model.ScoreEntityModel
 
-data class Score(
+internal data class Score(
     val point: Int,
     val createdDate: Long = System.currentTimeMillis(),
 )

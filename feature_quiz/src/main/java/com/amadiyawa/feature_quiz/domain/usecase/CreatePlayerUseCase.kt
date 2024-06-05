@@ -3,7 +3,7 @@ package com.amadiyawa.feature_quiz.domain.usecase
 import com.amadiyawa.feature_quiz.domain.model.Player
 import com.amadiyawa.feature_quiz.domain.repository.PlayerRepository
 
-internal class SavePlayerUseCase(
+internal class CreatePlayerUseCase(
     private val playerRepository: PlayerRepository
 ) {
     suspend operator fun invoke(player: Player) {
