@@ -21,6 +21,7 @@ The main focus of this game is to allow player to learn history of a particular 
 - Define player name
 
 ## Screenshots
+
 app screenshots
 
 ## Architecture

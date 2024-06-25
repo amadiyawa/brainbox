@@ -138,7 +138,7 @@ private fun HandleUiState(
                                 it.playerName,
                                 it.points,
                                 it.totalPoints
-                            ),
+                            ) + "\n\n" + stringResource(id = R.string.solution) + ":" + it.solution + "\n",
                             confirmText = stringResource(id = R.string.understood)
                         ),
                         dialogIcon = getScoreIcon(score = it.points),

@@ -231,7 +231,8 @@ internal class QuizViewModel(
                         return UiState.GameOver(
                             playerName = state.playerName,
                             points = state.points,
-                            totalPoints = state.questionList.size
+                            totalPoints = state.questionList.size,
+                            solution = state.solution
                         )
                     }
                     else -> state.copy(
@@ -240,6 +241,11 @@ internal class QuizViewModel(
                             state.points + 1
                         } else {
                             state.points
+                        },
+                        solution = if (currentSelectedOption.isEmpty() || state.currentQuestion.answer != currentSelectedOption.first().toString()) {
+                            state.solution + "\n\n" + state.currentQuestion.question + state.currentQuestion.optionList.first { it.first() == state.currentQuestion.answer.first() }.substring(2)
+                        } else {
+                            state.solution
                         }
                     )
                 }
@@ -254,7 +260,8 @@ internal class QuizViewModel(
             val questionList: List<Question>,
             val currentQuestionIndex: Int = 0,
             val playerName: String = "",
-            val points: Int = 0
+            val points: Int = 0,
+            val solution: String = ""
         ) : UiState {
             val currentQuestion: Question
                 get() = questionList[currentQuestionIndex]
@@ -262,7 +269,8 @@ internal class QuizViewModel(
         data class GameOver(
             val playerName: String,
             val points: Int,
-            val totalPoints: Int
+            val totalPoints: Int,
+            val solution: String
         ) : UiState
         data object PlayerName : UiState
         data object Loading : UiState

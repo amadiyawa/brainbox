@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lens
 import androidx.compose.material3.Button
@@ -52,7 +54,8 @@ fun DialogInfo(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Dimen.Spacing.large),
+                        .padding(Dimen.Spacing.large)
+                        .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium)
                 ) {
